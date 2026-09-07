@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EFFICIENCY AUTO</title>
+</head>
+<body>
+
+  <h1>EFFICIENCY AUTO</h1>
+
+  <div>
+    <label>Persons</label>
+    <input type="number" id="persons" value="11">
+
+    <label>Time (min)</label>
+    <input type="number" id="time" value="60">
+
+    <label>Quantity Cable</label>
+    <input type="number" id="quantity" value="24">
+  </div>
+
+  <hr>
+
+  <p>Available Time: <span id="available">0</span> min</p>
+  <p>Time Production: <span id="production">0</span> min</p>
+  <p>Efficiency: <span id="efficiency">0</span>%</p>
+
+  <button onclick="calculate()">Calculate</button>
+
+  <script>
+    function roundCompany(value) {
+      const integer = Math.floor(value);
+      const decimal = value - integer;
+
+      return decimal > 0.500 ? integer + 1 : integer;
+    }
+
+    function calculate() {
+      const persons = Number(document.getElementById("persons").value);
+      const time = Number(document.getElementById("time").value);
+      const quantity = Number(document.getElementById("quantity").value);
+
+      const availableTime = persons * time;
+
+      // Temporary calculation:
+      // 24 cables = 684 min
+      // This will be replaced by the final production-time logic.
+      const timeProductionRaw = quantity * 28.5;
+      const timeProduction = roundCompany(timeProductionRaw);
+
+      const efficiency = (timeProduction / availableTime) * 100;
+
+      document.getElementById("available").textContent = availableTime;
+      document.getElementById("production").textContent = timeProduction;
+      document.getElementById("efficiency").textContent =
+        efficiency.toFixed(2);
+    }
+
+    calculate();
+  </script>
+
+</body>
+</html>
